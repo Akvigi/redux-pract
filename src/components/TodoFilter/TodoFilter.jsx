@@ -1,7 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setStatusFilter } from 'redux/actions'
+// import { setStatusFilter } from 'redux/actions'
 import { statusFilters } from 'redux/constants'
+import { setStatusFilter } from 'redux/filterSlice'
 import { getFilter } from 'redux/selectors'
 import styled from 'styled-components'
 

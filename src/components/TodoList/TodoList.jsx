@@ -1,13 +1,12 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteTask, toggleCompleted } from 'redux/actions'
 import { statusFilters } from 'redux/constants'
 import { getState } from 'redux/selectors'
+import { deleteTask, toggleCompleted } from 'redux/tasksSlice'
 import styled from 'styled-components'
 
 const TodoList = () => {
   const { tasks, filter } = useSelector(getState)
-  // const tasks = []
   const dispatch = useDispatch()
 
   const getFilteredTasks = (tasks, status) => {
@@ -20,27 +19,29 @@ const TodoList = () => {
         return tasks;
     }
   }
-  const toggleCheck = (id) => {
-    dispatch(toggleCompleted(id))
-  }
+  // const toggleCheck = (id) => {
+  //   dispatch(toggleCompleted(id))
+  // }
+
+  const filterdTasks = getFilteredTasks(tasks, filter.status)
 
   return (
     <ul>
-      <Item>Nothing here</Item>
-      {getFilteredTasks(tasks, filter.status).map(({ id, text, completed }) => (
-        <Item key={id}>
-          <div style={{display: 'flex', flexDirection: "row", alignItems: 'center'}}>
-            <CheckBox
-              type="checkbox"
-              checked={completed}
-              onChange={() => toggleCheck(id)}
-            />
-            <p>{text}</p>
-          </div>
-          <Btn onClick={() => dispatch(deleteTask(id))}>
-            X
-          </Btn>
-        </Item>))}
+      {filterdTasks.length === 0 ? (<Item>Nothing here</Item>) :
+          filterdTasks.map(({ id, text, completed }) =>(<Item key={id}>
+            <div style={{ display: 'flex', flexDirection: "row", alignItems: 'center' }}>
+              <CheckBox
+                type="checkbox"
+                checked={completed}
+                onChange={() => dispatch(toggleCompleted(id))}
+              />
+              <p>{text}</p>
+            </div>
+            <Btn onClick={() => dispatch(deleteTask(id))}>
+              X
+            </Btn>
+          </Item>)
+      )}
       
     </ul>
   )

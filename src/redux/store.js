@@ -1,10 +1,13 @@
-import { devToolsEnhancer } from "@redux-devtools/extension";
-import { createStore } from "redux";
-import { reducer } from "./reducer";
+import { configureStore } from "@reduxjs/toolkit";
+import { filterReducer } from "./filterSlice";
+import { tasksReducer } from "./tasksSlice";
 
 
-const enhancer = devToolsEnhancer()
-
-const store = createStore(reducer, enhancer)
+const store = configureStore({
+    reducer: {
+        tasks: tasksReducer,
+        filter: filterReducer
+    }
+})
 
 export default store

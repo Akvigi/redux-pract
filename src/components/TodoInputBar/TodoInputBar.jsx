@@ -1,19 +1,25 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { addTask } from 'redux/actions'
+import { addTask } from 'redux/tasksSlice'
+// import { addTask } from 'redux/actions'
+
 import styled from 'styled-components'
 
 const TodoInputBar = () => {
     const [text, setText] = useState('')
     const dispatch = useDispatch()
     const onSubmit = (e) => {
+        if (text === "") {
+            return alert("text")
+        }
         e.preventDefault()
         setText('')
         dispatch(addTask(text))
     }
     return (
         <Form onSubmit={(e) => onSubmit(e)}>
-            <Input value={text} onChange={(e) => setText(e.currentTarget.value)} type="text" placeholder='What do you need to do?'/>
+            <Input value={text} onChange={(e) => setText(e.currentTarget.value)}
+                type="text" placeholder='What do you need to do?' />
             <Btn type="submit">add task</Btn>
         </Form>
     )
