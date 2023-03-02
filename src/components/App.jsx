@@ -1,9 +1,6 @@
 import Todo from "pages/Todo";
+import React from "react";
 
-export const App = () => {
-  return (
-    <div>
-      <Todo/>
-    </div>
-  );
-};
+export const App = () => (
+  <Todo/>
+);
